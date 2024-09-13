@@ -264,6 +264,10 @@ const router = useRouter();
 
 
 const authStore = useAuthStore()
+
+console.log('authStore', authStore);
+
+
 const data = 1;
 
 // middleware for authentication
@@ -272,10 +276,10 @@ definePageMeta({
 })
 
  // Send the data using fetch
- fetch('http://localhost:8000/api/get-active-booking')
-  .then(response => response.json())
-  .then(data => console.log('Success:', data))
-  .catch(error => console.error('Error:', error));
+//  fetch('http://localhost:8000/api/v1/get-active-booking')
+//   .then(response => response.json())
+//   .then(data => console.log('Success:', data))
+//   .catch(error => console.error('Error:', error));
 
 
 // Define the service descriptions
@@ -292,9 +296,13 @@ const bookings = ref([]);
 // Fetch data on component mount
 onMounted(async () => {
   try {
-    const response = await fetch('http://localhost:8000/api/get-active-booking');
+    const response = await fetch('http://localhost:8000/api/v1/get-active-booking');
     const data = await response.json();
-    bookings.value = data.booking;
+    bookings.value = data.bookings;
+
+    console.log('bookings.value', bookings.value);
+    
+
   } catch (error) {
     console.error('Error fetching bookings:', error);
   }
@@ -308,7 +316,7 @@ onMounted(async () => {
 const cancelBooking = async (id: number) => {
   console.log(id);
   try {
-    const response = await fetch(`http://localhost:8000/api/cancel-booking/${id}`, {
+    const response = await fetch(`http://localhost:8000/api/v1/cancel-booking/${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -346,7 +354,7 @@ const cancelBooking = async (id: number) => {
             lead="tight"
             class="text-muted-800 dark:text-white"
           >
-            <span>Welcome back, {{authStore.user.name}} </span>
+            <span>Welcome back, {{authStore.user.name ?? ''}} </span>
           </BaseHeading>
           <BaseParagraph>
             <span class="text-muted-500">
@@ -562,6 +570,7 @@ const cancelBooking = async (id: number) => {
             </tr>
           </thead>
           <tbody>
+            <!-- {{bookings.value}} -->
             <tr v-for="booking in bookings" :key="booking.id">
               <td class="py-2">
                 <BaseText size="sm" weight="medium" lead="none" class="text-muted-600 dark:text-muted-300">

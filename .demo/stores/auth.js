@@ -15,32 +15,65 @@ export const useAuthStore = defineStore('auth', {
   // could also be defined as
   // state: () => ({ count: 0 })
   actions: {
-    async UserLogin(email, password){
-     const data = await $fetch('http://localhost:8000/login', {
-        method: 'POST',
-        body: JSON.stringify({
-          email: email.value,
-          password: password.value,
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      // Handle success (e.g., store token, redirect, etc.)
-      console.log('Login successful:', data)
-      this.user = data.user
-      this.token = data.token
-      this.is_login = true
-      if (!this.offlineMode) { this.nextAuthRequired = Date.now() + 24 * 60 * 60 * 1000 }
-       // Redirect to dashboard
-       const router = useRouter();
-       router.push('/dashboards'); // Adjust the path if necessary
-     },
+    async UserLogin(email, password) {
+      try {
+        // Make the API request
+        const data = await $fetch('http://localhost:8000/api/v1/login', {
+          method: 'POST',
+          body: JSON.stringify({
+            email: email.value,
+            password: password.value,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+    
+        // Check if the response contains user data and a token
+        if (data.user && data.user.name) {
+          // Handle success
+          this.user = data.user;
+          this.token = data.token;
+          this.is_login = true;
+    
+          // Optionally set the nextAuthRequired if offlineMode is false
+          if (!this.offlineMode) {
+            this.nextAuthRequired = Date.now() + 24 * 60 * 60 * 1000;
+          }
+    
+          // Redirect to the dashboard
+          const router = useRouter();
+          router.push('/dashboards'); // Adjust the path if necessary
+        } else {
+          // Show error toaster if user data is incomplete
+          const toaster = useToaster();
+          toaster.show({
+            title: "Error",
+            message: `Login failed. User information is incomplete.`,
+            color: "danger",
+            icon: "ph:x",
+            class: "end-2 top-2",
+            closable: true,
+          });
+        }
+      } catch (error) {
+        // Handle any errors during the fetch
+        const toaster = useToaster();
+        toaster.show({
+          title: "Error",
+          message: `An unexpected error occurred.`,
+          color: "danger",
+          icon: "ph:x",
+          class: "end-2 top-2",
+          closable: true,
+        });
+      }
+    },
 
 
     //  Register user with
      async RegisterUser(name, email, password){
-      const data = await $fetch('http://localhost:8000/register', {
+      const data = await $fetch('http://localhost:8000/api/v1/register', {
          method: 'POST',
          body: JSON.stringify({
           name: name.value,
@@ -54,16 +87,17 @@ export const useAuthStore = defineStore('auth', {
        // Handle success (e.g., store token, redirect, etc.)
        console.log('Login successful:', data)
        console.log('user.user:', data.user)
-       console.log('user.token:', data.token)
+       console.log('this.user:', this.user)
        this.user = data.user
        this.token = data.token
+       console.log('this.user:', this.user)
        this.is_login = true
        if (!this.offlineMode) { this.nextAuthRequired = Date.now() + 24 * 60 * 60 * 1000 }
       },
 
     async UserLogout() {
       const token = this.token; // Ensure this.token is properly set
-      const data = await $fetch('http://localhost:8000/api/logout', {
+      const data = await $fetch('http://localhost:8000/api/v1/logout', {
         method: 'POST',
         headers: {
           Accept: "application/json",

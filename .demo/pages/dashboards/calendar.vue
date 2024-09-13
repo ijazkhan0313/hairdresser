@@ -262,7 +262,7 @@ const toaster = useToaster()
 
 async function sendBookingData(event: CalendarEvent) {
   try {
-    const response = await fetch('http://localhost:8000/api/admin-booking', {
+    const response = await fetch('http://localhost:8000/api/v1/admin-booking', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -323,7 +323,7 @@ const bookings = ref([]);
 // Fetch data on component mount
 onMounted(async () => {
   try {
-    const response = await fetch('http://localhost:8000/api/get-all-bookings');
+    const response = await fetch('http://localhost:8000/api/v1/get-all-bookings');
     const data = await response.json();
     // Assuming the bookings array directly represents pending events
     bookings.value = data.booking;

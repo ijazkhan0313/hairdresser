@@ -253,7 +253,7 @@ const selectedEvent = ref({
 
 async function sendBookingData(event: CalendarEvent) {
   try {
-    const response = await fetch('http://localhost:8000/api/admin-booking', {
+    const response = await fetch('http://localhost:8000/api/v1/admin-booking', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

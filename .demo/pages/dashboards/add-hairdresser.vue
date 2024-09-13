@@ -59,7 +59,7 @@ function handleSubmit() {
   }
 
   // Send the data using fetch
-  fetch('http://localhost:8000/api/add-hairdresser', {
+  fetch('http://localhost:8000/api/v1/add-hairdresser', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

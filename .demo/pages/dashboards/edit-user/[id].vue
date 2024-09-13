@@ -61,7 +61,7 @@ const updateUser = async () => {
 
   try {
     const id = route.params.id;
-    const response = await fetch(`http://localhost:8000/api/update-user/${id}`, {
+    const response = await fetch(`http://localhost:8000/api/v1/update-user/${id}`, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',

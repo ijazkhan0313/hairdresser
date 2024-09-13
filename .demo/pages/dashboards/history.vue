@@ -25,7 +25,7 @@ const bookings = ref([]);
 // Fetch data on component mount
 onMounted(async () => {
   try {
-    const response = await fetch('http://localhost:8000/api/get-all-bookings');
+    const response = await fetch('http://localhost:8000/api/v1/get-all-bookings');
     const data = await response.json();
     bookings.value = data.booking;
     console.log(data.booking);

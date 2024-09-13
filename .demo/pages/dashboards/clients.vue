@@ -23,7 +23,7 @@ const users = ref([]);
 // Fetch data on component mount
 onMounted(async () => {
   try {
-    const response = await fetch('http://localhost:8000/api/get-clients');
+    const response = await fetch('http://localhost:8000/api/v1/get-clients');
     const data = await response.json();
     users.value = data.clients;
     console.log(data);
@@ -35,7 +35,7 @@ onMounted(async () => {
 
 const deleteUser = async (id: number) => {
     try {
-        await fetch(`http://localhost:8000/api/delete-user/${id}`, {
+        await fetch(`http://localhost:8000/api/v1/delete-user/${id}`, {
             method: 'POST',
         });
         users.value = users.value.filter((user) => user.id!== id);
