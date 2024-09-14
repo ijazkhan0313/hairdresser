@@ -1058,7 +1058,7 @@ const users = ref([]);
 // Fetch data on component mount
 onMounted(async () => {
   try {
-    const response = await fetch("http://localhost:8000/api/v1/get-users");
+    const response = await fetch("http://localhost:8000/api/v1/get-hairdresser");
     const data = await response.json();
     users.value = data.users;
     console.log(users.value);

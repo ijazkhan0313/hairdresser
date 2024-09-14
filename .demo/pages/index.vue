@@ -31,6 +31,9 @@
             <li class="custom-nav-item">
               <NuxtLink class="nav-link" to="/contact">Contact</NuxtLink>
             </li>
+            <li class="custom-nav-item"  v-if="authStore.is_login">
+              <NuxtLink class="nav-link" to="/dashboards">Dashboard</NuxtLink>
+            </li>
           </ul>
         </div>
       </div>
@@ -1066,6 +1069,7 @@
 import { Calendar } from "v-calendar";
 import { ref } from "vue";
 import { computed } from "vue";
+const authStore = useAuthStore()
 
 import "v-calendar/dist/style.css";
 import "~/assets/css/vcalendar.css";
@@ -1118,7 +1122,7 @@ const users = ref([]);
 // Fetch data on component mount
 onMounted(async () => {
   try {
-    const response = await fetch("http://localhost:8000/api/v1/get-users");
+    const response = await fetch("http://localhost:8000/api/v1/get-hairdresser");
     const data = await response.json();
     users.value = data.users;
     console.log(users.value);
@@ -1166,11 +1170,11 @@ function validateStep() {
       showHairdresserError.value = false;
       break;
     case 3:
-      // if (!date.value) {
-      //   showDateError.value = true;
-      //   return false;
-      // }
-      // showDateError.value = false;
+      if (!selected_date.value) {
+        showDateError.value = true;
+        return false;
+      }
+      showDateError.value = false;
       break;
     case 4:
       if (!time.value) {
@@ -1182,10 +1186,7 @@ function validateStep() {
     case 5:
       // Check if all required fields are filled
       if (
-        !first_name.value ||
-        !last_name.value ||
-        !email.value ||
-        !phone.value
+        !first_name.value
       ) {
         showContractError.value = true;
         return false;
@@ -1211,9 +1212,6 @@ function handleContinue() {
 
 
 // =============== hairdressers ============================
-
-
-
 const selectedEvent = computed(() => {
   return (
     calendarEvents.value.find(
@@ -1222,10 +1220,6 @@ const selectedEvent = computed(() => {
     || pendingEvents.value.find(event => event.id === selectedEventId.value)
   )
 })
-
-
-console.log('selected canlander Event', selectedEvent);
-
 
 
 // ===================================== ref =====================================
@@ -1270,23 +1264,8 @@ function handleDateClick(date) {
   selected_date.value = date.id;
 }
 
-// // Function to send calendar data
-// function sendCalendarData(date) {
-//   // Log or send the selected date
-//   console.log('Selected Date:', date.id);
-  
-//   // Here you can also perform any action you need with the selected date
-//   // For example, sending it to an API or storing it
-// }
-
-
 // ===================================== submnit handleSubmit s=====================================
 function handleSubmit() {
-
-
-  console.log(' this si enter valie of date', selected_date.value);
-  
-
   const payload = {
     service: service.value,
     hairdresser: hairdresser.value,
@@ -1299,6 +1278,7 @@ function handleSubmit() {
   };
 
   const toaster = useToaster();
+
   fetch("http://localhost:8000/api/v1/booking", {
     method: "POST",
     headers: {
@@ -1308,31 +1288,28 @@ function handleSubmit() {
   })
     .then((response) => response.json())
     .then((response) => {
-      if (response.success === false) {
-        // Extract error messages
+      if (response.status !== 'success') {
+       // Extract and display each error message separately
         const errors = response.data;
-        let errorMessage = '';
-
-        for (const [field, messages] of Object.entries(errors)) {
-          errorMessage += `${messages.join(' ')} `;
+        for (const messages of Object.values(errors)) {
+          for (const message of messages) {
+            toaster.show({
+              title: "Validation Error",
+              message: message,
+              color: "danger",
+              icon: "ph:x",
+              class: "end-2 top-2",
+              closable: true,
+            });
+          }
         }
-
-        // Display errors in toaster
-        toaster.show({
-          title: "Validation Error",
-          message: errorMessage.trim(),
-          color: "danger",
-          icon: "ph:x",
-          class: "end-2 top-2",
-          closable: true,
-        });
       } else {
         // Success
         console.log("Success:", response);
         toaster.clearAll();
         toaster.show({
           title: "Success",
-          message: `Booking is sent successfully!`,
+          message: "Booking has been sent successfully!",
           color: "success",
           icon: "ph:check",
           class: "end-2 top-2",
@@ -1346,10 +1323,10 @@ function handleSubmit() {
     })
     .catch((error) => {
       console.error("Error:", error);
-      // Handle the error (e.g., display an error message)
+      // Handle unexpected errors
       toaster.show({
         title: "Error",
-        message: `An unexpected error occurred.`,
+        message: "An unexpected error occurred.",
         color: "danger",
         icon: "ph:x",
         class: "end-2 top-2",
@@ -1357,6 +1334,7 @@ function handleSubmit() {
       });
     });
 }
+
 
 </script>
 

@@ -265,9 +265,6 @@ const router = useRouter();
 
 const authStore = useAuthStore()
 
-console.log('authStore', authStore);
-
-
 const data = 1;
 
 // middleware for authentication

@@ -208,10 +208,6 @@ const selectedEventFeatures = computed({
   },
 })
 
-
-
-
-
 // my coden 
 // Function to send booking data to the backend
 import { ref, computed, reactive } from 'vue';
@@ -223,23 +219,7 @@ const categories = [
   { title: 'Simple haircut for women + wash', value: 'Simple haircut for women + wash' },
 ];
 
-const hairdresser = [
-  { name: 'assugnee', value: 1 },
-  { name: 'ijazkhan', value: 2 },
-  { name: 'faisal', value: 3 },
-  { name: 'saud', value: 4 },
-  { name: 'adnan', value: 5 },
-  { name: 'abrar', value: 6 },
-];
-
-const clients = [
-  { name: 'Emily Carter', value: 1 },
-  { name: 'Michael Thompson', value: 2 },
-  { name: 'Sarah Johnson', value: 3 },
-  { name: 'David Lee', value: 4 },
-  { name: 'Jessica Brown', value: 5 },
-  { name: 'Ryan Wilson', value: 6 },
-];
+const hairdresser = ref([])
 
 const selectedEvent = ref({
   firstname: '',
@@ -319,6 +299,8 @@ const serviceDescriptions = {
 
 // Define a ref to hold booking data
 const bookings = ref([]);
+  // get haridressers
+  const users = ref([]);
 
 // Fetch data on component mount
 onMounted(async () => {
@@ -333,6 +315,30 @@ onMounted(async () => {
   } catch (error) {
     console.error('Error fetching bookings:', error);
   }
+
+
+    // Fetch data on component mount
+      try {
+        const response = await fetch("http://localhost:8000/api/v1/get-hairdresser");
+        const data = await response.json();
+        users.value = data.users;
+        
+        // Transform the data to match the expected format
+        hairdresser.value = data.users.map(user => ({
+              name: user.name,
+              value: user.id
+            }));
+
+          console.log('hairdresser', hairdresser.value);
+
+
+        console.log('users.value',users.value);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    
+
+
 });
 
 </script>
@@ -850,7 +856,12 @@ onMounted(async () => {
           />
         
         
-          <!-- Assignee Dropdown -->
+       <!-- Assignee Dropdown -->
+         
+
+
+      
+
           <BaseListbox
           v-model.prop="selectedEvent.hairdresser"
           label="Hair Dresser"
