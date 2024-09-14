@@ -4,33 +4,32 @@
     <nav class="custom-navbar">
       <div class="custom-container">
         <!-- Brand Name -->
-        <NuxtLink class="custom-navbar-brand" to="/">BrandName</NuxtLink>
+        <NuxtLink class="navbar-brand" to="/">BrandName</NuxtLink>
 
         <!-- Toggler for responsive navbar -->
-        <button class="custom-navbar-toggler" type="button" @click="toggleNavbar">
+        <button
+          class="custom-navbar-toggler"
+          type="button"
+          @click="toggleNavbar"
+        >
           <span class="custom-navbar-toggler-icon"></span>
         </button>
 
         <!-- Navbar Links -->
-        <div :class="['custom-navbar-collapse', { 'show': isNavbarOpen }]" id="customNavbarNav">
+        <div
+          :class="['custom-navbar-collapse', { show: isNavbarOpen }]"
+          id="customNavbarNav"
+        >
           <ul class="custom-navbar-nav">
             <li class="custom-nav-item">
-              <NuxtLink class="custom-nav-link" to="/">Home</NuxtLink>
+              <NuxtLink class="nav-link" to="/">Home</NuxtLink>
             </li>
             <li class="custom-nav-item">
-              <NuxtLink class="custom-nav-link" to="/about">About</NuxtLink>
+              <NuxtLink class="nav-link" to="/about">About</NuxtLink>
             </li>
+            
             <li class="custom-nav-item">
-              <NuxtLink class="custom-nav-link" to="/services">Services</NuxtLink>
-            </li>
-            <li class="custom-nav-item">
-              <NuxtLink class="custom-nav-link" to="/contact">Contact</NuxtLink>
-            </li>
-            <li class="custom-nav-item">
-              <NuxtLink class="custom-nav-link" to="/auth">Login</NuxtLink>
-            </li>
-            <li class="custom-nav-item">
-              <NuxtLink class="custom-nav-link" to="/auth">Signup</NuxtLink>
+              <NuxtLink class="nav-link" to="/contact">Contact</NuxtLink>
             </li>
           </ul>
         </div>
@@ -41,296 +40,1012 @@
     <header class="mt-3">
       <div class="row w-100">
         <!-- Column 1 -->
-        <div class="col-md-4 d-flex flex-column justify-content-center align-items-center header-content">
+        <div
+          class="col-md-4 d-flex flex-column justify-content-center align-items-center header-content"
+        >
           <div>
-            <h1><b>Your<br>Perfect<br>Hairstyle<br>Awaits</b></h1>
+            <h1>
+              <b>Your<br />Perfect<br />Hairstyle<br />Awaits</b>
+            </h1>
             <p>Book an appointment with our expert</p>
           </div>
         </div>
 
-        <!-- Column 2 -->
-        <div class="col-md-8 d-flex justify-content-center align-items-center header-image">
-          <img src="/custom/img/header.png" alt="Hair Salon" class="img-fluid">
+        <div
+          class="col-md-8 d-flex justify-content-center align-items-center header-image"
+        >
+          <img
+            src="/custom/img/header.png"
+            alt="Hair Salon"
+            height="80%"
+            class="img-fluid"
+          />
         </div>
       </div>
     </header>
 
-
-    <div class="services my-5">
+    <div class="services my-5" style="margin-top: 50px">
       <h1><b>Book Your Appointment Online</b></h1>
-      <p>Convenient and hassle-free booking system for your next hair appointment.</p>
+      <p>
+        Convenient and hassle-free booking system for your next hair
+        appointment.
+      </p>
     </div>
 
-
-
-
     <!-- =============== wizard =================================== -->
-    <div class="grid w-full gap-10 md:grid-cols-12">
-      <div class="md:col-span-3 lg:col-span-4">
-        <div class="xs:w-full xs:max-w-xs xs:mx-auto flex flex-col gap-4 md:flex-row">
-          <div class="xs:max-w-xs xs:mx-auto relative flex justify-between gap-7 md:flex-col">
-            <!-- Progress Bar -->
+    <div
+      class="flex justify-center"
+      style="margin-top: 100px; margin-bottom: 100px"
+    >
+      <div class="grid w-full max-w-4xl gap-10 md:grid-cols-12">
+        <div class="md:col-span-3 lg:col-span-4">
+          <div
+            class="xs:w-full xs:max-w-xs xs:mx-auto flex flex-col gap-4 md:flex-row"
+          >
             <div
-              class="xs:top-1.5 xs:inset-x-0 bg-muted-200 dark:bg-muted-700 absolute start-2 top-2 z-0 mx-auto h-1 w-[calc(100%_-_1rem)] md:h-[calc(100%_-_1rem)] md:w-1 md:-translate-x-1/2"
-            ></div>
-            <div
-              class="bg-primary-500 absolute start-2 top-0 z-10 mx-auto hidden w-0.5 -translate-x-1/2 rounded-full transition-all duration-300 md:block"
-              :style="{ height: progressHeight + '%' }"
-            ></div>
-            <div
-              class="bg-primary-500 absolute start-1.5 top-[7px] z-10 h-0.5 rounded-full transition-all duration-300 md:hidden"
-              :style="{ width: progressWidth }"
-            ></div>
-            <!-- Steps Indicator -->
-            <div
-              v-for="index in totalSteps"
-              :key="index"
-              class="bg-muted-200 dark:bg-muted-700 relative z-20 flex size-4 items-center justify-center rounded-full"
+              class="xs:max-w-xs xs:mx-auto relative flex justify-between gap-7 md:flex-col"
             >
-              <span
-                :class="['scale-0', { 'scale-1': index <= currentStep }]"
-                class="bg-primary-500 block size-2 rounded-full transition-transform duration-300"
-              ></span>
-            </div>
-          </div>
-          <div class="relative flex justify-center gap-7 md:flex-col md:justify-between">
-            <!-- Step Labels -->
-            <a v-for="(label, index) in labels" :key="index" role="button" tabindex="0" class="cursor-default h-4 leading-none">
-              <span :class="{'text-muted-800 dark:text-muted-100': index + 1 === currentStep, 'text-muted-400 dark:text-muted-500': index + 1 !== currentStep}"
-                class="font-heading block text-xs"
+              <!-- Progress Bar -->
+              <div
+                class="xs:top-1.5 xs:inset-x-0 bg-muted-200 dark:bg-muted-700 absolute start-2 top-2 z-0 mx-auto h-1 w-[calc(100%_-_1rem)] md:h-[calc(100%_-_1rem)] md:w-1 md:-translate-x-1/2"
+              ></div>
+              <div
+                class="bg-primary-500 absolute start-2 top-0 z-10 mx-auto hidden w-0.5 -translate-x-1/2 rounded-full transition-all duration-300 md:block"
+                :style="{ height: progressHeight + '%' }"
+              ></div>
+              <div
+                class="bg-primary-500 absolute start-1.5 top-[7px] z-10 h-0.5 rounded-full transition-all duration-300 md:hidden"
+                :style="{ width: progressWidth }"
+              ></div>
+              <!-- Steps Indicator -->
+              <div
+                v-for="index in totalSteps"
+                :key="index"
+                class="bg-muted-200 dark:bg-muted-700 relative z-20 flex size-4 items-center justify-center rounded-full"
               >
-                {{ label }}
-              </span>
-            </a>
+                <span
+                  :class="['scale-0', { 'scale-1': index <= currentStep }]"
+                  class="bg-primary-500 block size-2 rounded-full transition-transform duration-300"
+                ></span>
+              </div>
+            </div>
+            <div
+              class="relative flex justify-center gap-7 md:flex-col md:justify-between"
+            >
+              <!-- Step Labels -->
+              <a
+                v-for="(label, index) in labels"
+                :key="index"
+                role="button"
+                tabindex="0"
+                class="cursor-default h-4 leading-none"
+              >
+                <span
+                  :class="{
+                    'text-muted-800 dark:text-muted-100':
+                      index + 1 === currentStep,
+                    'text-muted-400 dark:text-muted-500':
+                      index + 1 !== currentStep,
+                  }"
+                  class="font-heading block text-xs"
+                >
+                  {{ label }}
+                </span>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="md:col-span-9 lg:col-span-8">
-        <form @submit.prevent="handleSubmit">
-          <div class="w-full">
-            <div class="mb-8 space-y-2">
-              <h2 class="nui-heading nui-heading-2xl nui-weight-medium nui-lead-normal md:!3xl text-muted-800 dark:text-white">
-                What do you want?
-              </h2>
-              <p class="nui-paragraph nui-paragraph-sm nui-weight-normal nui-lead-normal text-muted-500 dark:text-muted-400 max-w-sm">
-                Choose a service under
-              </p>
+        <div class="md:col-span-9 lg:col-span-8">
+          <form @submit.prevent="handleSubmit">
+            <div class="w-full">
+              <div class="relative max-w-md space-y-3">
+                <!-- Step Content -->
+                <div v-show="currentStep === 1">
+                  <div class="mb-8 space-y-2">
+                    <h2
+                      class="nui-heading nui-heading-2xl nui-weight-medium nui-lead-normal md:!3xl text-muted-800 dark:text-white"
+                    >
+                      What do you want?
+                    </h2>
+                    <p
+                      class="nui-paragraph nui-paragraph-sm nui-weight-normal nui-lead-normal text-muted-500 dark:text-muted-400 max-w-sm"
+                    >
+                      Choose a service under
+                    </p>
+                  </div>
+
+                  <div
+                    class="nui-input-wrapper nui-input-default nui-input-md nui-input-rounded-sm nui-has-icon"
+                  >
+                    <!-- asdfasdfsdf -->
+                    <div class="w-full space-y-4">
+                      <!-- Error message -->
+                      <span v-if="showError" class="text-danger"
+                        >Please select any service</span
+                      >
+
+                      <!--Radio groups-->
+                      <BaseRadioHeadless
+                        v-model="service"
+                        v-focus="service == 'Simple haircut for men'"
+                        value="Simple haircut for men"
+                        name="service"
+                        class="nui-focus !appearance-none rounded-lg !opacity-100"
+                        required
+                      >
+                        <div
+                          class="peer-checked:child:scale-1 peer-not-checked:child:scale-0 bg-muted-100 text-muted-100 dark:bg-muted-900 dark:text-muted-900 peer-checked:text-primary-500 absolute start-6 top-1/2 flex size-6 -translate-y-1/2 items-center justify-center rounded-full"
+                        >
+                          <div
+                            class="size-3 rounded-full bg-current transition-colors duration-300"
+                          />
+                        </div>
+                        <div
+                          class="dark:bg-muted-800 border-muted-200 dark:border-muted-700 peer-checked:shadow-muted-400/10 dark:peer-checked:shadow-muted-800/10 group-focus-visible:tw-accessibility-static group flex cursor-pointer items-center rounded-lg border bg-white px-6 py-4 transition-shadow duration-300 peer-checked:shadow-xl"
+                        >
+                          <div
+                            class="border-muted-200 flex size-5 items-center justify-center rounded-full border"
+                          />
+                          <div class="ms-6 flex flex-col">
+                            <BaseText
+                              weight="medium"
+                              class="text-muted-800 dark:text-muted-100"
+                            >
+                              Simple haircut for men
+                            </BaseText>
+                          </div>
+                          <div class="ms-auto flex w-32 flex-col">
+                           
+                            <BaseText size="xs" class="text-muted-400">
+                              400 kr
+                            </BaseText>
+                          </div>
+                        </div>
+                      </BaseRadioHeadless>
+                      <BaseRadioHeadless
+                        v-model="service"
+                        v-focus="service == 'Simple haircut for woman + Wash'"
+                        value="Simple haircut for woman + Wash"
+                        name="service"
+                        class="nui-focus !appearance-none rounded-lg !opacity-100"
+                        required
+                      >
+                        <div
+                          class="peer-checked:child:scale-1 peer-not-checked:child:scale-0 bg-muted-100 text-muted-100 dark:bg-muted-900 dark:text-muted-900 peer-checked:text-primary-500 absolute start-6 top-1/2 flex size-6 -translate-y-1/2 items-center justify-center rounded-full"
+                        >
+                          <div
+                            class="size-3 rounded-full bg-current transition-colors duration-300"
+                          />
+                        </div>
+                        <div
+                          class="dark:bg-muted-800 border-muted-200 dark:border-muted-700 peer-checked:shadow-muted-400/10 dark:peer-checked:shadow-muted-800/10 group-focus-visible:tw-accessibility-static group flex cursor-pointer items-center rounded-lg border bg-white px-6 py-4 transition-shadow duration-300 peer-checked:shadow-xl"
+                        >
+                          <div
+                            class="border-muted-200 flex size-5 items-center justify-center rounded-full border"
+                          />
+                          <div class="ms-6 flex flex-col">
+                            <BaseText
+                              weight="medium"
+                              class="text-muted-800 dark:text-muted-100"
+                            >
+                              Simple haircut for woman + Wash
+                            </BaseText>
+                          </div>
+                          <div class="ms-auto flex w-32 flex-col">
+                            <BaseText size="xs" class="text-muted-400">
+                              700
+                            </BaseText>
+                          </div>
+                        </div>
+                      </BaseRadioHeadless>
+                      <BaseRadioHeadless
+                        v-model="service"
+                        v-focus="service == 'Simple haircut for woman'"
+                        value="Simple haircut for woman"
+                        name="service"
+                        class="nui-focus !appearance-none rounded-lg !opacity-100"
+                        required
+                      >
+                        <div
+                          class="peer-checked:child:scale-1 peer-not-checked:child:scale-0 bg-muted-100 text-muted-100 dark:bg-muted-900 dark:text-muted-900 peer-checked:text-primary-500 absolute start-6 top-1/2 flex size-6 -translate-y-1/2 items-center justify-center rounded-full"
+                        >
+                          <div
+                            class="size-3 rounded-full bg-current transition-colors duration-300"
+                          />
+                        </div>
+                        <div
+                          class="dark:bg-muted-800 border-muted-200 dark:border-muted-700 peer-checked:shadow-muted-400/10 dark:peer-checked:shadow-muted-800/10 group-focus-visible:tw-accessibility-static group flex cursor-pointer items-center rounded-lg border bg-white px-6 py-4 transition-shadow duration-300 peer-checked:shadow-xl"
+                        >
+                          <div
+                            class="border-muted-200 flex size-5 items-center justify-center rounded-full border"
+                          />
+                          <div class="ms-6 flex flex-col">
+                            <BaseText
+                              weight="medium"
+                              class="text-muted-800 dark:text-muted-100"
+                            >
+                              Simple haircut for woman
+                            </BaseText>
+                          </div>
+                          <div class="ms-auto flex w-32 flex-col">
+                            <BaseText size="xs" class="text-muted-400">
+                              400
+                            </BaseText>
+                          </div>
+                        </div>
+                      </BaseRadioHeadless>
+                      <BaseRadioHeadless
+                        v-model="service"
+                        v-focus="service == 'Simple haircut for woman + Wash'"
+                        value="Simple haircut for woman + Wash"
+                        name="service"
+                        class="nui-focus !appearance-none rounded-lg !opacity-100"
+                        required
+                      >
+                        <div
+                          class="peer-checked:child:scale-1 peer-not-checked:child:scale-0 bg-muted-100 text-muted-100 dark:bg-muted-900 dark:text-muted-900 peer-checked:text-primary-500 absolute start-6 top-1/2 flex size-6 -translate-y-1/2 items-center justify-center rounded-full"
+                        >
+                          <div
+                            class="size-3 rounded-full bg-current transition-colors duration-300"
+                          />
+                        </div>
+                        <div
+                          class="dark:bg-muted-800 border-muted-200 dark:border-muted-700 peer-checked:shadow-muted-400/10 dark:peer-checked:shadow-muted-800/10 group-focus-visible:tw-accessibility-static group flex cursor-pointer items-center rounded-lg border bg-white px-6 py-4 transition-shadow duration-300 peer-checked:shadow-xl"
+                        >
+                          <div
+                            class="border-muted-200 flex size-5 items-center justify-center rounded-full border"
+                          />
+                          <div class="ms-6 flex flex-col">
+                            <BaseText
+                              weight="medium"
+                              class="text-muted-800 dark:text-muted-100"
+                            >
+                              Simple haircut for woman + Wash
+                            </BaseText>
+                          </div>
+                          <div class="ms-auto flex w-32 flex-col">
+                            <BaseText size="xs" class="text-muted-400">
+                              700
+                            </BaseText>
+                          </div>
+                        </div>
+                      </BaseRadioHeadless>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- haircutter 2 -->
+                <div v-show="currentStep === 2">
+                  <div class="mb-8 space-y-2">
+                    <h2
+                      class="nui-heading nui-heading-2xl nui-weight-medium nui-lead-normal md:!3xl text-muted-800 dark:text-white"
+                    >
+                      who do you want to cut your hair?
+                    </h2>
+                    <p
+                      class="nui-paragraph nui-paragraph-sm nui-weight-normal nui-lead-normal text-muted-500 dark:text-muted-400 max-w-sm"
+                    >
+                      Choose a haircutter
+                    </p>
+                  </div>
+
+                  <!-- Error message -->
+                  <span v-if="showHairdresserError" class="text-danger"
+                    >Please select any Hairdcutter</span
+                  >
+
+
+                  <!-- Widget -->
+                  <div class="col-span-12">
+                    <TairoTable rounded="sm">
+                      <TairoTableRow>
+                        <TairoTableCell>
+                          <div class="flex items-center ms-5 space-x-2">
+                            <BaseRadio
+                              v-model="hairdresser"
+                              name="hairdresser"
+                              value="1"
+                            />
+                            <div class="flex items-center space-x-2">
+                              <BaseAvatar
+                                src="/custom/img/DSC_0006.JPG"
+                                size="sm"
+                              />
+                              <div class="leading-none">
+                                <h3 class="font-heading text-sm font-bold">
+                                  ijazkhan
+                                </h3>
+                              </div>
+                            </div>
+                          </div>
+                        </TairoTableCell>
+                      </TairoTableRow>
+                    </TairoTable>
+                  </div>
+
+                  <!-- 2 -->
+                  <div class="col-span-12">
+                    <TairoTable rounded="sm">
+                      <TairoTableRow>
+                        <TairoTableCell>
+                          <div class="flex items-center ms-5 space-x-2">
+                            <!-- Adjust spacing here -->
+                            <BaseRadio
+                              v-model="hairdresser"
+                              name="hairdresser"
+                              value="2"
+                            />
+                            <div class="flex items-center space-x-2">
+                              <!-- Adjust spacing between image and text -->
+                              <BaseAvatar
+                                src="https://tairo.cssninja.io/img/avatars/2.svg"
+                                size="sm"
+                              />
+                              <div class="leading-none">
+                                <h3 class="font-heading text-sm font-bold">
+                                  <!-- Bold text -->
+                                  Lila Monroe
+                                </h3>
+                              </div>
+                            </div>
+                          </div>
+                        </TairoTableCell>
+                      </TairoTableRow>
+                    </TairoTable>
+                  </div>
+
+                  <div class="col-span-12">
+                    <TairoTable rounded="sm">
+                      <TairoTableRow>
+                        <TairoTableCell>
+                          <div class="flex items-center ms-5 space-x-2">
+                            <!-- Adjust spacing here -->
+                            <BaseRadio
+                              v-model="hairdresser"
+                              name="haircutter"
+                              value="3"
+                            />
+                            <div class="flex items-center space-x-2">
+                              <!-- Adjust spacing between image and text -->
+                              <BaseAvatar
+                                src="https://tairo.cssninja.io/img/avatars/2.svg"
+                                size="sm"
+                              />
+                              <div class="leading-none">
+                                <h3 class="font-heading text-sm font-bold">
+                                  <!-- Bold text -->
+                                  Nina Carter
+                                </h3>
+                              </div>
+                            </div>
+                          </div>
+                        </TairoTableCell>
+                      </TairoTableRow>
+                    </TairoTable>
+                  </div>
+                </div>
+
+                <!--  -->
+                <div v-show="currentStep === 3">
+                  <div class="mb-8 space-y-2">
+                    <h2
+                      class="nui-heading nui-heading-2xl nui-weight-medium nui-lead-normal md:!3xl text-muted-800 dark:text-white"
+                    >
+                      Choose a date
+                    </h2>
+                    <p
+                      class="nui-paragraph nui-paragraph-sm nui-weight-normal nui-lead-normal text-muted-500 dark:text-muted-400 max-w-sm"
+                    >
+                      Choose a date for appointment
+                    </p>
+                  </div>
+
+                  <!-- Error message -->
+                  <span v-if="showDateError" class="text-danger"
+                    >Please select Date</span
+                  >
+
+                  <!-- Widget get date value from celender -->
+                  <div>
+                    <BaseInput
+                      v-model.trim="date"
+                      v-focus
+                      type="date"
+                      label="date"
+                    />
+                  </div>
+                </div>
+
+                <div v-show="currentStep === 4">
+                  <div class="mb-4 space-y-1">
+                    <!-- Reduced margin-bottom and space between elements -->
+                    <h2
+                      class="nui-heading nui-heading-xl nui-weight-medium nui-lead-normal md:!2xl text-muted-800 dark:text-white"
+                    >
+                      Choose a timeslot
+                    </h2>
+                    <p
+                      class="nui-paragraph nui-paragraph-sm nui-weight-normal nui-lead-normal text-muted-500 dark:text-muted-400 max-w-sm"
+                    >
+                      Choose a timeslot for your appointment
+                    </p>
+                  </div>
+
+                  <!-- Error message -->
+                  <span v-if="showTimeError" class="text-danger"
+                    >Please select Time</span
+                  >
+
+                  <!-- get time value -->
+                  <div class="grid grid-cols-2 gap-5">
+                    <!-- Left Section -->
+                    <div class="col-span-1">
+                      <!-- Time Slot 1 -->
+                      <TairoTable rounded="sm" class="!p-2">
+                        <!-- Reduced padding in table -->
+                        <TairoTableRow>
+                          <TairoTableCell class="!py-2">
+                            <!-- Reduced padding in table cell -->
+                            <div class="flex items-center space-x-2 ms-3">
+                              <BaseRadio
+                                v-model="time"
+                                name="time"
+                                value="09:00"
+                                class="!h-4 ms-3 !w-4"
+                              />
+                              <!-- Reduced size of radio button -->
+                              <Field name="meeting.frequency" class="text-sm"
+                                >09:00</Field
+                              >
+                              <!-- Adjusted text size -->
+                            </div>
+                          </TairoTableCell>
+                        </TairoTableRow>
+                      </TairoTable>
+                      <!-- Time Slot 2 -->
+                      <TairoTable rounded="sm" class="!p-2">
+                        <TairoTableRow>
+                          <TairoTableCell class="!py-2">
+                            <div class="flex items-center space-x-2 ms-3">
+                              <BaseRadio
+                                v-model="time"
+                                name="time"
+                                value="09:30"
+                                class="!h-4 ms-3 !w-4"
+                              />
+                              <Field name="meeting.frequency" class="text-sm"
+                                >09:30</Field
+                              >
+                            </div>
+                          </TairoTableCell>
+                        </TairoTableRow>
+                      </TairoTable>
+                      <!-- Time Slot 3 -->
+                      <TairoTable rounded="sm" class="!p-2">
+                        <TairoTableRow>
+                          <TairoTableCell class="!py-2">
+                            <div class="flex items-center space-x-2 ms-3">
+                              <BaseRadio
+                                v-model="time"
+                                name="time"
+                                value="10:00"
+                                class="!h-4 ms-3 !w-4"
+                              />
+                              <Field name="meeting.frequency" class="text-sm"
+                                >10:00</Field
+                              >
+                            </div>
+                          </TairoTableCell>
+                        </TairoTableRow>
+                      </TairoTable>
+                      <!-- Time Slot 4 -->
+                      <TairoTable rounded="sm" class="!p-2">
+                        <TairoTableRow>
+                          <TairoTableCell class="!py-2">
+                            <div class="flex items-center space-x-2 ms-3">
+                              <BaseRadio
+                                v-model="time"
+                                name="time"
+                                value="10:30"
+                                class="!h-4 ms-3 !w-4"
+                              />
+                              <Field name="meeting.frequency" class="text-sm"
+                                >10:30</Field
+                              >
+                            </div>
+                          </TairoTableCell>
+                        </TairoTableRow>
+                      </TairoTable>
+                      <!-- Time Slot 5 -->
+                      <TairoTable rounded="sm" class="!p-2">
+                        <TairoTableRow>
+                          <TairoTableCell class="!py-2">
+                            <div class="flex items-center space-x-2 ms-3">
+                              <BaseRadio
+                                v-model="time"
+                                name="time"
+                                value="11:00"
+                                class="!h-4 ms-3 !w-4"
+                              />
+                              <Field name="meeting.frequency" class="text-sm"
+                                >11:00</Field
+                              >
+                            </div>
+                          </TairoTableCell>
+                        </TairoTableRow>
+                      </TairoTable>
+
+                      <!-- Time Slot 6 -->
+                      <TairoTable rounded="sm" class="!p-2">
+                        <!-- Reduced padding in table -->
+                        <TairoTableRow>
+                          <TairoTableCell class="!py-2">
+                            <!-- Reduced padding in table cell -->
+                            <div class="flex items-center space-x-2">
+                              <BaseRadio
+                                v-model="time"
+                                name="time"
+                                value="11:30"
+                                class="!h-4 !w-4"
+                              />
+                              <!-- Reduced size of radio button -->
+                              <Field name="meeting.frequency" class="text-sm"
+                                >11:30</Field
+                              >
+                              <!-- Adjusted text size -->
+                            </div>
+                          </TairoTableCell>
+                        </TairoTableRow>
+                      </TairoTable>
+                    </div>
+
+                    <!-- Right Section -->
+                    <div class="col-span-1">
+                      <!-- Time Slot 7 -->
+                      <TairoTable rounded="sm" class="!p-2">
+                        <TairoTableRow>
+                          <TairoTableCell class="!py-2">
+                            <div class="flex items-center space-x-2">
+                              <BaseRadio
+                                v-model="time"
+                                name="time"
+                                value="12:00"
+                                class="!h-4 !w-4"
+                              />
+                              <Field name="meeting.frequency" class="text-sm"
+                                >12:00</Field
+                              >
+                            </div>
+                          </TairoTableCell>
+                        </TairoTableRow>
+                      </TairoTable>
+                      <!-- Time Slot 8 -->
+                      <TairoTable rounded="sm" class="!p-2">
+                        <TairoTableRow>
+                          <TairoTableCell class="!py-2">
+                            <div class="flex items-center space-x-2">
+                              <BaseRadio
+                                v-model="time"
+                                name="time"
+                                value="12:30"
+                                class="!h-4 !w-4"
+                              />
+                              <Field name="meeting.frequency" class="text-sm"
+                                >12:30</Field
+                              >
+                            </div>
+                          </TairoTableCell>
+                        </TairoTableRow>
+                      </TairoTable>
+                      <!-- Time Slot 9 -->
+                      <TairoTable rounded="sm" class="!p-2">
+                        <TairoTableRow>
+                          <TairoTableCell class="!py-2">
+                            <div class="flex items-center space-x-2">
+                              <BaseRadio
+                                v-model="time"
+                                name="time"
+                                value="13:00"
+                                class="!h-4 !w-4"
+                              />
+                              <Field name="meeting.frequency" class="text-sm"
+                                >13:00</Field
+                              >
+                            </div>
+                          </TairoTableCell>
+                        </TairoTableRow>
+                      </TairoTable>
+                      <!-- Time Slot 10 -->
+                      <TairoTable rounded="sm" class="!p-2">
+                        <TairoTableRow>
+                          <TairoTableCell class="!py-2">
+                            <div class="flex items-center space-x-2">
+                              <BaseRadio
+                                v-model="time"
+                                name="time"
+                                value="13:30"
+                                class="!h-4 !w-4"
+                              />
+                              <Field name="meeting.frequency" class="text-sm"
+                                >13:30</Field
+                              >
+                            </div>
+                          </TairoTableCell>
+                        </TairoTableRow>
+                      </TairoTable>
+                      <!-- Time Slot 11 -->
+                      <TairoTable rounded="sm" class="!p-2">
+                        <TairoTableRow>
+                          <TairoTableCell class="!py-2">
+                            <div class="flex items-center space-x-2">
+                              <BaseRadio
+                                v-model="time"
+                                name="time"
+                                value="14:00"
+                                class="!h-4 !w-4"
+                              />
+                              <Field name="meeting.frequency" class="text-sm"
+                                >14:00</Field
+                              >
+                            </div>
+                          </TairoTableCell>
+                        </TairoTableRow>
+                      </TairoTable>
+                      <!-- Time Slot 12 -->
+                      <TairoTable rounded="sm" class="!p-2">
+                        <TairoTableRow>
+                          <TairoTableCell class="!py-2">
+                            <div class="flex items-center space-x-2">
+                              <BaseRadio
+                                v-model="time"
+                                name="time"
+                                value="14:00"
+                                class="!h-4 !w-4"
+                              />
+                              <Field name="meeting.frequency" class="text-sm"
+                                >14:30</Field
+                              >
+                            </div>
+                          </TairoTableCell>
+                        </TairoTableRow>
+                      </TairoTable>
+                    </div>
+                  </div>
+                </div>
+
+                <div v-show="currentStep === 5" class="space-y-4">
+                  <div class="mb-4 space-y-1">
+                    <!-- Reduced margin-bottom and space between elements -->
+                    <h2
+                      class="nui-heading nui-heading-xl nui-weight-medium nui-lead-normal md:!2xl text-muted-800 dark:text-white"
+                    >
+                      Contact Information
+                    </h2>
+                    <p
+                      class="nui-paragraph nui-paragraph-sm nui-weight-normal nui-lead-normal text-muted-500 dark:text-muted-400 max-w-sm"
+                    >
+                      Contact details
+                    </p>
+
+                    <!-- Error message -->
+                    <span v-if="showContractError" class="text-danger"
+                      >Please Add contact details</span
+                    >
+
+                    <!-- Grid container for name inputs -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <!-- First Name Input -->
+                      <BaseInput
+                        v-model="first_name"
+                        rounded="md"
+                        label="First Name"
+                        placeholder="First Name"
+                        class="w-full"
+                      />
+                      <!-- Last Name Input -->
+                      <BaseInput
+                        v-model="last_name"
+                        rounded="md"
+                        label="Last Name"
+                        placeholder="Last Name"
+                        class="w-full"
+                      />
+                    </div>
+
+                    <!-- Email Input -->
+                    <BaseInput
+                      v-model="email"
+                      rounded="md"
+                      label="Email"
+                      placeholder="Email"
+                      class="w-full"
+                    />
+
+                    <!-- Phone Input -->
+                    <BaseInput
+                      v-model="phone"
+                      rounded="md"
+                      label="Phone"
+                      placeholder="Phone"
+                      class="w-full"
+                    />
+                  </div>
+                </div>
+
+                <div v-show="currentStep === 6" class="space-y-4">
+                  <div class="mb-4 space-y-1">
+                    <!-- Reduced margin-bottom and space between elements -->
+                    <h2
+                      class="nui-heading nui-heading-xl nui-weight-medium nui-lead-normal md:!2xl text-muted-800 dark:text-white"
+                    >
+                      Summary
+                    </h2>
+                    <p
+                      class="nui-paragraph nui-paragraph-sm nui-weight-normal nui-lead-normal text-muted-500 dark:text-muted-400 max-w-sm"
+                    >
+                      Summary
+                    </p>
+                    <!-- Grid container for name inputs -->
+                    <BaseRadioHeadless
+                      v-model="service"
+                      v-focus="service == '1'"
+                      name="selected_service"
+                      class="nui-focus !appearance-none rounded-lg !opacity-100"
+                    >
+                      <div
+                        class="peer-checked:child:scale-1 peer-not-checked:child:scale-0 bg-muted-100 text-muted-100 dark:bg-muted-900 dark:text-muted-900 peer-checked:text-primary-500 absolute start-6 top-1/2 flex size-6 -translate-y-1/2 items-center justify-center rounded-full"
+                      >
+                        <div
+                          class="size-3 rounded-full bg-current transition-colors duration-300"
+                        />
+                      </div>
+                      <div
+                        class="dark:bg-muted-800 border-muted-200 dark:border-muted-700 peer-checked:shadow-muted-400/10 dark:peer-checked:shadow-muted-800/10 group-focus-visible:tw-accessibility-static group flex cursor-pointer items-center rounded-lg border bg-white px-6 py-4 transition-shadow duration-300 peer-checked:shadow-xl"
+                      >
+                        <div
+                          class="border-muted-200 flex size-5 items-center justify-center rounded-full border"
+                        />
+                        <div class="ms-6 flex flex-col">
+                          <BaseText
+                            weight="medium"
+                            class="text-muted-800 dark:text-muted-100"
+                          >
+                            <!-- {{selected_hairdresser}} -->
+                            {{ selected_service_description }}
+                          </BaseText>
+                        </div>
+                        <div class="ms-auto flex w-32 flex-col">
+                  
+                          <BaseText size="xs" class="text-muted-400">
+                            400 kr
+                          </BaseText>
+                        </div>
+                      </div>
+                    </BaseRadioHeadless>
+
+                    <!-- Widget with image -->
+                    <div class="col-span-12 mt-4">
+                      <TairoTable rounded="sm">
+                        <TairoTableRow>
+                          <TairoTableCell>
+                            <div class="flex items-center ms-4 space-x-2">
+                              <!-- Adjust spacing here -->
+                              <div class="flex items-center space-x-2">
+                                <!-- Adjust spacing between image and text -->
+                                <BaseAvatar
+                                  src="https://tairo.cssninja.io/img/avatars/2.svg"
+                                  size="sm"
+                                />
+                                <div class="leading-none">
+                                  <h3 class="font-heading text-sm font-bold">
+                                    <!-- Bold text -->
+                                    <!-- {{ selected_hairdresser_name}} -->
+
+                                    {{ service }}
+                                  </h3>
+                                </div>
+                              </div>
+                            </div>
+                          </TairoTableCell>
+                        </TairoTableRow>
+                      </TairoTable>
+                    </div>
+
+                    <!-- Time Slot 1 -->
+                    <TairoTable rounded="sm" class="!p-2">
+                      <!-- Reduced padding in table -->
+                      <TairoTableRow>
+                        <TairoTableCell class="!py-2">
+                          <!-- Reduced padding in table cell -->
+                          <div class="flex items-center space-x-2 ms-3">
+                            <!-- <BaseRadio v-model="selected" name="time" value="09:00" class="!h-4 ms-3 !w-4" /> -->
+                            <!-- Reduced size of radio button -->
+                            <Field name="selected_time" class="text-sm">{{
+                              selected_time
+                            }}</Field>
+                            <!-- Adjusted text size -->
+                          </div>
+                        </TairoTableCell>
+                      </TairoTableRow>
+                    </TairoTable>
+
+                    <!-- Time Slot 1 -->
+                    <TairoTable rounded="sm" class="!p-2">
+                      <!-- Reduced padding in table -->
+                      <TairoTableRow>
+                        <TairoTableCell class="!py-2">
+                          <!-- Reduced padding in table cell -->
+                          <div class="flex flex-col space-y-2 ms-3">
+                            <!-- Use flex-col to stack items vertically -->
+                            <Field name="username" class="text-sm block">
+                              <b>Name: {{ selected_name }}</b>
+                            </Field>
+                            <Field name="email" class="text-sm block">
+                              <b>Email: {{ selected_email }}</b>
+                            </Field>
+                            <Field name="phone" class="text-sm block">
+                              <b>Phone: {{ selected_phone }}</b>
+                            </Field>
+                          </div>
+                        </TairoTableCell>
+                      </TairoTableRow>
+                    </TairoTable>
+                  </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="flex gap-2">
+                  <button
+                    v-if="currentStep < totalSteps"
+                    type="button"
+                    @click="handleContinue"
+                    class="nui-button nui-button-lg nui-button-rounded-sm nui-button-solid nui-button-primary w-full"
+                  >
+                    <span>Continue</span>
+                  </button>
+                  <button
+                    v-if="currentStep === totalSteps"
+                    type="submit"
+                    class="nui-button nui-button-lg nui-button-rounded-sm nui-button-solid nui-button-primary w-full"
+                  >
+                    <span>Submit</span>
+                  </button>
+                </div>
+              </div>
             </div>
-            <div class="relative max-w-md space-y-3">
-              <!-- Step Content -->
-              <div v-show="currentStep === 1">
-                <div class="nui-input-wrapper nui-input-default nui-input-md nui-input-rounded-sm nui-has-icon">
-                  <input
-                    type="text"
-                    class="nui-input !p-4 !ps-12 !h-12"
-                    placeholder="Ex: Service Name"
-                    v-model="step1Data"
-                  />
-                  <div class="!h-12 !w-12 nui-input-icon">
-                    <!-- Icon SVG -->
-                  </div>
-                </div>
-              </div>
-              <div v-show="currentStep === 2">
-                <div class="nui-input-wrapper nui-input-default nui-input-md nui-input-rounded-sm nui-has-icon">
-                  <input
-                    type="text"
-                    class="nui-input !p-4 !ps-12 !h-12"
-                    placeholder="Ex: Recipient Name"
-                    v-model="step2Data"
-                  />
-                  <div class="!h-12 !w-12 nui-input-icon">
-                    <!-- Icon SVG -->
-                  </div>
-                </div>
-              </div>
-              <div v-show="currentStep === 3">
-                <div class="nui-input-wrapper nui-input-default nui-input-md nui-input-rounded-sm nui-has-icon">
-                  <input
-                    type="text"
-                    class="nui-input !p-4 !ps-12 !h-12"
-                    placeholder="Ex: Recipient Address"
-                    v-model="step3Data"
-                  />
-                  <div class="!h-12 !w-12 nui-input-icon">
-                    <!-- Icon SVG -->
-                  </div>
-                </div>
-              </div>
-              <div v-show="currentStep === 4">
-                <div class="nui-input-wrapper nui-input-default nui-input-md nui-input-rounded-sm nui-has-icon">
-                  <input
-                    type="number"
-                    class="nui-input !p-4 !ps-12 !h-12"
-                    placeholder="Ex: Amount"
-                    v-model="step4Data"
-                  />
-                  <div class="!h-12 !w-12 nui-input-icon">
-                    <!-- Icon SVG -->
-                  </div>
-                </div>
-              </div>
-              <div v-show="currentStep === 5">
-                <div class="nui-input-wrapper nui-input-default nui-input-md nui-input-rounded-sm nui-has-icon">
-                  <textarea
-                    class="nui-input !p-4 !ps-12 !h-12"
-                    placeholder="Review details"
-                    v-model="step5Data"
-                  ></textarea>
-                  <div class="!h-12 !w-12 nui-input-icon">
-                    <!-- Icon SVG -->
-                  </div>
-                </div>
-              </div>
-              <!-- Navigation Buttons -->
-              <div class="flex gap-2">
-                <button
-                  v-if="currentStep < totalSteps"
-                  type="button"
-                  @click="handleContinue"
-                  class="nui-button nui-button-lg nui-button-rounded-sm nui-button-solid nui-button-primary w-full"
-                >
-                  <span>Continue</span>
-                </button>
-                <button
-                  v-if="currentStep === totalSteps"
-                  type="submit"
-                  class="nui-button nui-button-lg nui-button-rounded-sm nui-button-solid nui-button-primary w-full"
-                >
-                  <span>Submit</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
 
     <!-- =========================== wizard ======================================== -->
-
-
     <!-- Testimonial -->
-    <div class="text-center main-testimonial my-5">
-      <h1 class="my-5"><b>What People Say About Us</b></h1>
-      <div class="row">
-        <!-- Testimonial 1 -->
-        <div class="col-md-4">
-          <div class="testimonial">
-            <div class="testimonial-text ml-5">
-              <blockquote class="blockquote">
-                <p class="mb-0">“I love the service at this hair salon. The staff is friendly and I always leave
-                  feeling happy with my new hairdo.”</p>
-              </blockquote>
-              <div>
-                <img src="/custom/img/DSC_0001.JPG" alt="Person" class="testimonial-img">
-              </div>
-              <div class="mx-3 mt-1">
-                <span style="color: blue;"><b>M Zada</b></span>
-                <br>
-                <cite title="Source Title">Regular Customer</cite>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Testimonial 2 -->
-        <div class="col-md-4">
-          <div class="testimonial">
-            <div class="testimonial-text ml-5">
-              <blockquote class="blockquote">
-                <p class="mb-0">“I was hesitant to try a new salon, but I'm so glad I did. The stylists here are
-                  talented and the atmosphere is welcoming.”</p>
-              </blockquote>
-              <div>
-                <img src="/custom/img/DSC_0005.JPG" alt="Person" class="testimonial-img">
-              </div>
-              <div class="mx-3 mt-1">
-                <span style="color: blue;"><b>M Ijaz</b></span>
-                <br>
-                <cite title="Source Title">Regular Customer</cite>
+    <div style="margin-top: 80px; margin-bottom: 80px">
+      <div class="text-center main-testimonial my-5">
+        <h1 class="mt-5 mb-3"><b>What People Say About Us</b></h1>
+        <div class="row">
+          <!-- Testimonial 1 -->
+          <div class="col-md-4 d-flex justify-content-center">
+            <div class="testimonial text-center">
+              <div class="testimonial-text">
+                <blockquote class="blockquote">
+                  <p class="mb-0">
+                    “I've been coming to this salon for years and it never
+                    disappoints. The quality of service is consistently
+                    excellent.”
+                  </p>
+                </blockquote>
+                <div class="d-flex align-items-center justify-content-center">
+                  <img
+                    src="https://static.vecteezy.com/system/resources/previews/024/354/252/non_2x/businessman-isolated-illustration-ai-generative-free-photo.jpg"
+                    alt="Person"
+                    class="rounded-circle"
+                    style="width: 50px; height: auto"
+                  />
+                  <div class="ms-3">
+                    <span class="text-primary"><b>Emily Johnson</b></span>
+                    <br />
+                    <cite title="Source Title">Regular Customer</cite>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Testimonial 3 -->
-        <div class="col-md-4">
-          <div class="testimonial">
-            <div class="testimonial-text ml-5">
-              <blockquote class="blockquote">
-                <p class="mb-0">“I've been coming to this salon for years and it never disappoints. The quality
-                  of service is consistently excellent.”</p>
-              </blockquote>
-              <div>
-                <img src="/custom/img/DSC_0006.JPG" alt="Person" class="testimonial-img">
+          <!-- Testimonial 2 -->
+          <div class="col-md-4 d-flex justify-content-center">
+            <div class="testimonial text-center">
+              <div class="testimonial-text">
+                <blockquote class="blockquote">
+                  <p class="mb-0">
+                    “I've been coming to this salon for years and it never
+                    disappoints. The quality of service is consistently
+                    excellent.”
+                  </p>
+                </blockquote>
+                <div class="d-flex align-items-center justify-content-center">
+                  <img
+                    src="https://img.freepik.com/premium-photo/female-professional-hair-stylist-hair-dresser-hair-beauty-salon_1061358-4916.jpg"
+                    alt="Person"
+                    class="rounded-circle"
+                    style="width: 50px; height: auto"
+                  />
+                  <div class="ms-3">
+                    <span class="text-primary"><b>Micheel Williams</b></span>
+                    <br />
+                    <cite title="Source Title">Regular Customer</cite>
+                  </div>
+                </div>
               </div>
-              <div class="mx-3 mt-1">
-                <span style="color: blue;"><b>Saud Zada</b></span>
-                <br>
-                <cite title="Source Title">Regular Customer</cite>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="col-md-4 d-flex justify-content-center">
+            <div class="testimonial text-center">
+              <div class="testimonial-text">
+                <blockquote class="blockquote">
+                  <p class="mb-0">
+                    “I've been coming to this salon for years and it never
+                    disappoints. The quality of service is consistently
+                    excellent.”
+                  </p>
+                </blockquote>
+                <div class="d-flex align-items-center justify-content-center">
+                  <img
+                    src="https://img.freepik.com/premium-photo/female-professional-hair-stylist-hair-dresser-hair-beauty-salon_1061358-4884.jpg"
+                    alt="Person"
+                    class="rounded-circle"
+                    style="width: 50px; height: auto"
+                  />
+                  <div class="ms-3">
+                    <span class="text-primary"><b>Sophia Adams</b></span>
+                    <br />
+                    <cite title="Source Title">Regular Customer</cite>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
     <!-- Accordion -->
-    <div class="accordion my-5">
-      <div v-for="(item, index) in items" :key="index" class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button" @click="toggle(index)" :class="{ active: activeIndex === index }">
-            {{ item.header }}
-          </button>
-        </h2>
-        <div class="accordion-body" v-show="activeIndex === index">
-          <p v-html="item.body"></p>
-        </div>
-      </div>
-    </div>
 
-
-    <!-- acciordian of theme  -->
-    <div class="md:max-w-lg">
-      <BaseAccordion
-        :items="accordion"
-        exclusive
-        action="chevron"
-      />
-    </div>
-
-
-
-    <div class="">
-      <br><br><br><br>
-      <br><br><br><br>
-    </div>
-  </div>
+</div>
 </template>
 
 <script setup>
-import { useHead } from '#app'
-import { definePageMeta } from '#imports' // Ensure this import is correct for Nuxt 3
+import { Calendar } from "v-calendar";
+import { ref } from "vue";
+
+import "v-calendar/dist/style.css";
+import "~/assets/css/vcalendar.css";
+import { useHead } from "#app";
+import { definePageMeta } from "#imports"; // Ensure this import is correct for Nuxt 3
 
 // Set page meta and head elements
 useHead({
-  title: 'mindboost',
+  title: "mindboost",
   meta: [
     // { name: 'theme-color', content: '#E9C046' }
   ],
   link: [
-    { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css' }
+    {
+      rel: "stylesheet",
+      href: "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css",
+    },
   ],
   script: [
-    { src: 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js' }
-  ]
-})
+    {
+      src: "https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js",
+    },
+  ],
+});
 
 definePageMeta({
-  layout: '/custom'
-})
-
-import { ref } from 'vue';
+  layout: "custom",
+});
 
 const isNavbarOpen = ref(false);
 
@@ -338,24 +1053,20 @@ function toggleNavbar() {
   isNavbarOpen.value = !isNavbarOpen.value;
 }
 
+// get haridressers
+const users = ref([]);
+// Fetch data on component mount
+onMounted(async () => {
+  try {
+    const response = await fetch("http://localhost:8000/api/v1/get-users");
+    const data = await response.json();
+    users.value = data.users;
+    console.log(users.value);
+  } catch (error) {
+    console.error("Error fetching users:", error);
+  }
+});
 
-// customer 
-
-// Define the items for the accordion
-const items = ref([
-  {
-    header: 'What are the opening hours?',
-    body: 'Our salon is open <strong>9:00 AM TO 6:00 PM</strong>, Monday to Saturday.',
-  },
-  {
-    header: 'How do I book an appointment?',
-    body: 'This is the second <strong>item\'s accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element.',
-  },
-  {
-    header: 'Do you offer hairstyle services for special occasions?',
-    body: 'This is the third item\'s accordion body. <strong>Saud Ur Rehman</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance.',
-  },
-]);
 
 // State to track which accordion item is open
 const activeIndex = ref(null);
@@ -365,62 +1076,211 @@ function toggle(index) {
   activeIndex.value = activeIndex.value === index ? null : index;
 }
 
-
-
 //  ===================================== datab ================================
-import { computed } from 'vue';
-
-const currentStep = ref(1);
-const step1Data = ref('');
-const step2Data = ref('');
-const step3Data = ref('');
-const step4Data = ref('');
-const step5Data = ref('');
-const totalSteps = 5; // Number of steps in the wizard
-
+import { computed } from "vue";
 const progressHeight = computed(() => (currentStep.value / totalSteps) * 100);
-const progressWidth = computed(() => `${(currentStep.value / totalSteps) * 100}%`);
+const progressWidth = computed(
+  () => `${(currentStep.value / totalSteps) * 100}%`
+);
 
-const labels = ['Services', 'Recipient details', 'Recipient address', 'Amount', 'Review'];
+const labels = [
+  "Services",
+  "Hair cutter",
+  "Date",
+  "Timeslot",
+  "Contact Information",
+  "Summary",
+];
+
+const showError = ref(false);
+const showHairdresserError = ref(false);
+const showDateError = ref(false);
+const showTimeError = ref(false);
+const showContractError = ref(false);
+
+// ===================================== validation logic for each step=====================================
+
+function validateStep() {
+  switch (currentStep.value) {
+    case 1:
+      if (!service.value) {
+        showError.value = true;
+        return false;
+      }
+      showError.value = false;
+      break;
+    case 2:
+      if (!hairdresser.value) {
+        showHairdresserError.value = true;
+        return false;
+      }
+      showHairdresserError.value = false;
+      break;
+    case 3:
+      if (!date.value) {
+        showDateError.value = true;
+        return false;
+      }
+      showDateError.value = false;
+      break;
+    case 4:
+      if (!time.value) {
+        showTimeError.value = true;
+        return false;
+      }
+      showTimeError.value = false;
+      break;
+    case 5:
+      // Check if all required fields are filled
+      if (
+        !first_name.value ||
+        !last_name.value ||
+        !email.value ||
+        !phone.value
+      ) {
+        showContractError.value = true;
+        return false;
+      }
+      showContractError.value = false;
+      break;
+    default:
+      break;
+  }
+  return true;
+}
 
 function handleContinue() {
-  if (currentStep.value < totalSteps) {
-    currentStep.value++;
+  if (validateStep()) {
+    if (currentStep.value < totalSteps) {
+      currentStep.value++;
+    } else {
+      // Handle the final submission logic
+      // For example: router.push('/summary') or submit the form
+    }
   }
 }
 
-// function handleSubmit() {
-//   // Handle form submission
-//   console.log('Form submitted', { step1Data, step2Data, step3Data, step4Data, step5Data });
-// }
+//
+// Mapping service values to descriptions
+const serviceDescriptions = {
+  1: "Simple haircut for men",
+  2: "Simple haircut for women + Wash",
+  3: "Simple haircut for women",
+  4: "Simple haircut for women + Wash",
+};
 
+// Computed property to get the selected service description
+const selected_service_description = computed(() => {
+  return serviceDescriptions[service.value] || "";
+});
+
+// =============== hairdressers ============================
+
+// Mapping hairdresser values to names
+const hairdresserNames = {
+  1: "Maya Roshi",
+  2: "Lila Monroe",
+  3: "Nina Carter",
+};
+
+// Computed property to get the selected hairdresser's name
+const selected_hairdresser_name = computed(() => {
+  return hairdresserNames[hairdresser.value] || "";
+});
+
+// ===================================== ref =====================================
+const service = ref("");
+const hairdresser = ref("");
+const selected = ref("");
+const date = ref("");
+const time = ref("");
+const first_name = ref("");
+const last_name = ref("");
+const email = ref("");
+const phone = ref("");
+const currentStep = ref(1);
+const totalSteps = 6;
+const router = useRouter();
+
+// Use computed properties to reflect changes reactively
+const selected_service = computed(() => service.value || "");
+const selected_hairdresser = computed(() => hairdresser.value || "");
+const selected_time = computed(() => time.value || "");
+const selected_name = computed(() => first_name.value || "");
+const selected_email = computed(() => email.value || "");
+const selected_phone = computed(() => phone.value || "");
+
+// ===================================== submnit handleSubmit s=====================================
 function handleSubmit() {
-  // Prepare the data payload
   const payload = {
-    step1Data: step1Data.value,
-    step2Data: step2Data.value,
-    step3Data: step3Data.value,
-    step4Data: step4Data.value,
-    step5Data: step5Data.value
+    service: service.value,
+    hairdresser: hairdresser.value,
+    date: date.value,
+    time: time.value,
+    first_name: first_name.value,
+    last_name: last_name.value,
+    email: email.value,
+    phone: phone.value,
   };
 
-  // Send the data using fetch
-  fetch('/api/booking', {
-    method: 'POST',
+  const toaster = useToaster();
+  fetch("http://localhost:8000/api/v1/booking", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
   })
-  .then(response => response.json())
-  .then(data => {
-    console.log('Success:', data);
-    // Handle the response data (e.g., navigate to a confirmation page)
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-    // Handle the error (e.g., display an error message)
-  });
+    .then((response) => response.json())
+    .then((response) => {
+      if (response.success === false) {
+        // Extract error messages
+        const errors = response.data;
+        let errorMessage = '';
+
+        for (const [field, messages] of Object.entries(errors)) {
+          errorMessage += `${messages.join(' ')} `;
+        }
+
+        // Display errors in toaster
+        toaster.show({
+          title: "Validation Error",
+          message: errorMessage.trim(),
+          color: "danger",
+          icon: "ph:x",
+          class: "end-2 top-2",
+          closable: true,
+        });
+      } else {
+        // Success
+        console.log("Success:", response);
+        toaster.clearAll();
+        toaster.show({
+          title: "Success",
+          message: `Booking is sent successfully!`,
+          color: "success",
+          icon: "ph:check",
+          class: "end-2 top-2",
+          closable: true,
+        });
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      // Handle the error (e.g., display an error message)
+      toaster.show({
+        title: "Error",
+        message: `An unexpected error occurred.`,
+        color: "danger",
+        icon: "ph:x",
+        class: "end-2 top-2",
+        closable: true,
+      });
+    });
 }
 
 </script>
@@ -462,9 +1322,7 @@ function handleSubmit() {
   margin-top: 7rem;
 }
 
-
 /* ============================ navbar style  ============================*/
-
 
 .custom-navbar {
   padding: 1rem;
@@ -493,7 +1351,7 @@ function handleSubmit() {
 }
 
 .custom-navbar-toggler-icon::before {
-  content: '☰';
+  content: "☰";
   /* Use any icon here */
 }
 
@@ -555,57 +1413,11 @@ function handleSubmit() {
   }
 }
 
-
 /*============================  Caresol Style ============================*/
-
-
-.accordion {
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  overflow: hidden;
-  width: 100%;
-  max-width: 100%;
-  margin: auto;
-}
-
-.accordion-item {
-  border-bottom: 1px solid #ddd;
-}
-
-.accordion-header {
-  margin: 0;
-}
-
-.accordion-button {
-  background-color: #f8f9fa;
-  color: #000;
-  /* Text color for the header */
-  border: none;
-  width: 100%;
-  padding: 15px;
-  text-align: left;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  outline: none;
-}
-
-.accordion-button.active {
-  background-color: #e9ecef;
-}
-
-.accordion-body {
-  padding: 15px;
-  background-color: #f1f1f1;
-}
-
-
 
 header {
   width: 100%;
 }
-
-
 
 .header-content h1 {
   font-size: 3rem;
@@ -622,8 +1434,6 @@ h1 {
   /* Adjust line height for better spacing */
   margin: 0;
 }
-
-
 
 .header-content p {
   font-size: 1.25rem;

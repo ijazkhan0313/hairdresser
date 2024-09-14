@@ -312,9 +312,10 @@ onMounted(async () => {
 // =================== my code =========================
 
 // Method to handle user update
-// Method to handle user update
 const cancelBooking = async (id: number) => {
   console.log(id);
+  const toaster = useToaster();  // Ensure the toaster instance is initialized
+
   try {
     const response = await fetch(`http://localhost:8000/api/v1/cancel-booking/${id}`, {
       method: 'POST',
@@ -329,10 +330,79 @@ const cancelBooking = async (id: number) => {
     // Update the local bookings array
     bookings.value = bookings.value.filter(booking => booking.id !== id);
 
+    // Show the success message
+    toaster.clearAll();  // Clear any previous toasts
+    toaster.show({
+      title: "Success",
+      message: `Booking has been successfully canceled!`,
+      color: "success",
+      icon: "ph:check",
+      class: "end-2 top-2",
+      closable: true,
+    });
+
     // Optionally navigate to a different page after updating
     // router.push('/dashboards/hairdresser');
   } catch (error) {
     console.error('Error canceling booking:', error);
+    // Optionally show an error toaster message
+    toaster.clearAll();  // Clear any previous toasts
+    toaster.show({
+      title: "Error",
+      message: `Failed to cancel booking. Please try again.`,
+      color: "danger",
+      icon: "ph:x",
+      class: "end-2 top-2",
+      closable: true,
+    });
+  }
+};
+
+
+// completed Method 
+const markCompleted = async (id: number) => {
+  console.log(id);
+  const toaster = useToaster();  // Ensure the toaster instance is initialized
+
+  try {
+    const response = await fetch(`http://localhost:8000/api/v1/mark-completed/${id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (!response.ok) {
+      throw new Error('Failed to cancel booking');
+    }
+    
+    // Update the local bookings array
+    bookings.value = bookings.value.filter(booking => booking.id !== id);
+
+    // Show the success message
+    toaster.clearAll();  // Clear any previous toasts
+    toaster.show({
+      title: "Success",
+      message: `Booking has been marked completed!`,
+      color: "success",
+      icon: "ph:check",
+      class: "end-2 top-2",
+      closable: true,
+    });
+
+    // Optionally navigate to a different page after updating
+    // router.push('/dashboards/hairdresser');
+  } catch (error) {
+    console.error('Error canceling booking:', error);
+    // Optionally show an error toaster message
+    toaster.clearAll();  // Clear any previous toasts
+    toaster.show({
+      title: "Error",
+      message: `Failed to cancel booking. Please try again.`,
+      color: "danger",
+      icon: "ph:x",
+      class: "end-2 top-2",
+      closable: true,
+    });
   }
 };
 
@@ -533,8 +603,6 @@ const cancelBooking = async (id: number) => {
           <AddonApexcharts v-bind="areaCustomers" class="-ms-4" />
         </BaseCard>
       </div>
-
-      
   <!--Transactions-->
   <div class="col-span-12">
     <BaseCard rounded="md" shadow="hover" class="p-8">
@@ -570,7 +638,6 @@ const cancelBooking = async (id: number) => {
             </tr>
           </thead>
           <tbody>
-            <!-- {{bookings.value}} -->
             <tr v-for="booking in bookings" :key="booking.id">
               <td class="py-2">
                 <BaseText size="sm" weight="medium" lead="none" class="text-muted-600 dark:text-muted-300">
@@ -604,8 +671,14 @@ const cancelBooking = async (id: number) => {
               </td>
               <td class="px-4 py-2">
                 <BaseText size="sm" weight="medium" lead="none" class="text-muted-600 dark:text-muted-300">
+                  <button class="btn btn-success bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500" @click="markCompleted(booking.id)">
+                    Completed
+                  </button>
+                </BaseText>
+                
+                <BaseText size="sm" weight="medium" lead="none" class="text-muted-600 dark:text-muted-300">
                   <button class="btn btn-danger bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500" @click="cancelBooking(booking.id)">
-                    Cancel Booking
+                    Cancel
                   </button>
                 </BaseText>
               </td>

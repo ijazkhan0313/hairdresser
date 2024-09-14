@@ -26,7 +26,7 @@ onMounted(async () => {
     const response = await fetch('http://localhost:8000/api/v1/get-clients');
     const data = await response.json();
     users.value = data.clients;
-    console.log(data);
+    console.log('users.value', users.value);
     
   } catch (error) {
     console.error('Error fetching users:', error);
@@ -34,15 +34,42 @@ onMounted(async () => {
 });
 
 const deleteUser = async (id: number) => {
+    const toaster = useToaster(); // Initialize toaster
+
     try {
+        // Make the API call to delete the user
         await fetch(`http://localhost:8000/api/v1/delete-user/${id}`, {
             method: 'POST',
         });
-        users.value = users.value.filter((user) => user.id!== id);
+
+        // Update the users list by filtering out the deleted user
+        users.value = users.value.filter((user) => user.id !== id);
+
+        // Show a success toaster message
+        toaster.clearAll();
+        toaster.show({
+            title: 'Success',
+            message: 'Client deleted successfully!',
+            color: 'success',
+            icon: 'ph:check',
+            class: 'end-2 top-2',
+            closable: true,
+        });
+
     } catch (error) {
-        console.error('Error deleting user:', error);
+        // Handle errors and show an error toaster message
+        console.error('Error deleting Client:', error);
+        toaster.clearAll();
+        toaster.show({
+            title: 'Error',
+            message: 'Failed to delete Client. Please try again.',
+            color: 'danger',
+            icon: 'ph:x',
+            class: 'end-2 top-2',
+            closable: true,
+        });
     }
-}
+};
 
 
 </script>
@@ -64,9 +91,9 @@ const deleteUser = async (id: number) => {
                     </div>
 
                     <div class="mt-7 overflow-x-auto">
-                        <div v-if="data === 0">
+                        <div v-if="!users || users.length === 0">
                             <BasePlaceholderPage title="Nothing to show"
-                                subtitle="Looks like there are no transactions to show for this recipient. Come back one you have sent or received money from this recipient." />
+                                subtitle="It looks like there are no clients in the database at the moment. Please add or import client information to see it listed here." />
                         </div>
                         <table v-else class="w-full whitespace-nowrap">
                             <thead>
@@ -89,7 +116,7 @@ const deleteUser = async (id: number) => {
                                   </td>
                                   <td class="py-2">
                                     <BaseText size="sm" weight="medium" lead="none" class="text-muted-600 dark:text-muted-300">
-                                      {{ user.name }}
+                                      {{ user.first_name ?? '' }} {{ user.last_name  ?? ''}}
                                     </BaseText>
                                   </td>
                                   <td class="px-4 py-2">

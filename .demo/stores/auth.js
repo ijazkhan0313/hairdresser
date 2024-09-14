@@ -29,6 +29,21 @@ export const useAuthStore = defineStore('auth', {
           },
         });
     
+        // Check if the response indicates an error
+        if (data.response == false) {
+          // Show error toaster with the exact message from the API response
+          const toaster = useToaster();
+          toaster.show({
+            title: "Error",
+            message: data.error || 'Email or password are incorrect.',
+            color: "danger",
+            icon: "ph:x",
+            class: "end-2 top-2",
+            closable: true,
+          });
+          return; // Exit the function early
+        }
+    
         // Check if the response contains user data and a token
         if (data.user && data.user.name) {
           // Handle success
@@ -43,6 +58,16 @@ export const useAuthStore = defineStore('auth', {
     
           // Redirect to the dashboard
           const router = useRouter();
+          // Show error toaster if user data is incomplete
+          const toaster = useToaster();
+          toaster.show({
+            title: "success",
+            message: `Login Successfully`,
+            color: "success",
+            icon: "ph:x",
+            class: "end-2 top-2",
+            closable: true,
+          });
           router.push('/dashboards'); // Adjust the path if necessary
         } else {
           // Show error toaster if user data is incomplete

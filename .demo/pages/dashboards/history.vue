@@ -8,9 +8,6 @@ definePageMeta({
   middleware: ['auth']
 })
 
-
-// functions
-
 // Define the service descriptions
 const serviceDescriptions = {
   "1": "Simple haircut for men",
@@ -27,10 +24,9 @@ onMounted(async () => {
   try {
     const response = await fetch('http://localhost:8000/api/v1/get-all-bookings');
     const data = await response.json();
-    bookings.value = data.booking;
-    console.log(data.booking);
+    bookings.value = data.bookings;
+    console.log(data.bookings);
     console.log(bookings.value);
-
 
   } catch (error) {
     console.error('Error fetching bookings:', error);
@@ -67,10 +63,8 @@ const getStatusText = (status: number) => {
 
 
 // status 
-
 function statusColor(itemStatus: string) {
   switch (itemStatus) {
-    
     case 0:
       return 'danger'
     case 1:

@@ -13,6 +13,7 @@ definePageMeta({
 
 // my code 
 import { useAuthStore } from '~/stores/auth'
+const toaster = useToaster()
 
 definePageMeta({
     middleware: ['auth']
@@ -31,16 +32,50 @@ onMounted(async () => {
   }
 });
 
+// Method to handle user deletion
 const deleteUser = async (id: number) => {
-    try {
-        await fetch(`http://localhost:8000/api/v1/delete-user/${id}`, {
-            method: 'POST',
-        });
-        users.value = users.value.filter((user) => user.id!== id);
-    } catch (error) {
-        console.error('Error deleting user:', error);
+  try {
+    const response = await fetch(`http://localhost:8000/api/v1/delete-user/${id}`, {
+      method: 'POST',
+    });
+
+    if (!response.ok) {
+      // Handle HTTP errors
+      const errorMessage = await response.text();
+      throw new Error(errorMessage || 'Failed to delete user');
     }
+    
+    // Update the local users array
+    users.value = users.value.filter((user) => user.id !== id);
+
+    // Show success toaster message
+    const toaster = useToaster();
+    toaster.clearAll(); // Clear previous messages if any
+    toaster.show({
+      title: 'Success',
+      message: `Hairdresser deleted successfully!`,
+      color: 'success',
+      icon: 'ph:check',
+      class: 'end-2 top-2',
+      closable: true,
+    });
+  } catch (error) {
+    console.error('Error deleting user:', error);
+
+    // Show error toaster message
+    const toaster = useToaster();
+    toaster.clearAll(); // Clear previous messages if any
+    toaster.show({
+      title: 'Error',
+      message: `Failed to delete user: ${error.message}`,
+      color: 'danger',
+      icon: 'ph:x',
+      class: 'end-2 top-2',
+      closable: true,
+    });
+  }
 }
+
 
 
 </script>

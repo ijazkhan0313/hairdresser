@@ -26,10 +26,10 @@ export function useCalendarEvents(props: UseCalendarEventsProps) {
       const response = await fetch('http://localhost:8000/api/v1/get-all-bookings');
       const data = await response.json();
       // Assuming the bookings array directly represents pending events
-      bookings.value = data.booking;
+      bookings.value = data.bookings;
       // You might need to filter or transform the data here
-      pendingEvents.value = data.booking; // Example filter
-      // console.log('this is fatching data',  pendingEvents.value);
+      pendingEvents.value = data.bookings; // Example filter
+      console.log('get-all-bookings fatching',  pendingEvents.value);
     } catch (error) {
       console.error('Error fetching bookings:', error);
     }

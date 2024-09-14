@@ -1,11 +1,6 @@
 <script setup lang="ts">
 
-
-import { toTypedSchema } from '@vee-validate/zod'
 import { Field, useFieldError, useForm } from 'vee-validate'
-import { z } from 'zod'
-
-
 import { AddonInputPhone } from '#components'
 
 definePageMeta({
@@ -80,7 +75,7 @@ function handleSubmit() {
         class: 'end-2 top-2',
         closable: true,
       })
-
+      router.push('/hairdresser'); // Adjust the path if necessary
     })
     .catch((error) => {
       console.error('Error:', error);

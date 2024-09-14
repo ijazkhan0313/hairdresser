@@ -217,10 +217,10 @@ const selectedEventFeatures = computed({
 import { ref, computed, reactive } from 'vue';
 
 const categories = [
-  { title: 'Simple haircut for men', value: 1 },
-  { title: 'Simple haircut for men + wash', value: 2 },
-  { title: 'Simple haircut for women', value: 3 },
-  { title: 'Simple haircut for women + wash', value: 4 },
+  { title: 'Simple haircut for men', value: 'Simple haircut for men' },
+  { title: 'Simple haircut for men + wash', value: 'Simple haircut for men + wash' },
+  { title: 'Simple haircut for women', value: 'Simple haircut for women' },
+  { title: 'Simple haircut for women + wash', value: 'Simple haircut for women + wash' },
 ];
 
 const hairdresser = [
