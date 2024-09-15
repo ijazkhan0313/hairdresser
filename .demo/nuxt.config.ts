@@ -112,7 +112,8 @@ export default defineNuxtConfig({
       // mapbox config
       mapboxToken: '', // set it via NUXT_PUBLIC_MAPBOX_TOKEN env
       siteUrl: '', // set it via NUXT_PUBLIC_SITE_URL
-    },
+     apiUrl: process.env.API_BASE_URL || 'http://localhost:8000', // Default value if .env is not set
+      },
   },
 
   routeRules: {

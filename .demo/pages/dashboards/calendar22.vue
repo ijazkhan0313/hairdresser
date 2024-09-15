@@ -212,6 +212,9 @@ const selectedEventFeatures = computed({
 // my coden 
 // Function to send booking data to the backend
 import { ref, computed, reactive } from 'vue';
+// define api_route
+const config = useRuntimeConfig()
+const apiUrl = config.public.apiUrl
 
 const categories = [
   { title: 'Simple haircut for men', value: 1 },
@@ -253,7 +256,7 @@ const selectedEvent = ref({
 
 async function sendBookingData(event: CalendarEvent) {
   try {
-    const response = await fetch('http://localhost:8000/api/v1/admin-booking', {
+    const response = await fetch(`${apiUrl}/api/v1/admin-booking`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -7,6 +7,10 @@ interface UseCalendarEventsProps {
   toDate: MaybeRefOrGetter<Date>;
 }
 
+// define api_route
+const config = useRuntimeConfig()
+const apiUrl = config.public.apiUrl
+
 export function useCalendarEvents(props: UseCalendarEventsProps) {
   const calendarEvents = ref<CalendarCustomAttribute<CalendarEvent>[]>([]);
   const pendingEvents = ref<CalendarEvent[]>([]);
@@ -23,7 +27,7 @@ export function useCalendarEvents(props: UseCalendarEventsProps) {
 
   // Fetch data on component mount
     try {
-      const response = await fetch('http://localhost:8000/api/v1/get-all-bookings');
+      const response = await fetch(`${apiUrl}/api/v1/get-all-bookings`);
       const data = await response.json();
       // Assuming the bookings array directly represents pending events
       bookings.value = data.bookings;

@@ -37,7 +37,7 @@
           <!-- Column 1 -->
           <div class="col-md-4 d-flex flex-column justify-content-center align-items-center header-content">
             <div>
-              <h1><b>Your<br>Perfect<br>Hairstyle<br>Awaits</b></h1>
+              <h1><b>Your<br>Perfect<br>Hairstyle<br>Awaits</b> : {{apiUrl}}</h1>
               <p>Book an appointment with our expert</p>
             </div>
           </div>
@@ -171,6 +171,13 @@
   import { useHead } from '#app'
   import { definePageMeta } from '#imports' // Ensure this import is correct for Nuxt 3
   
+
+  const config = useRuntimeConfig()
+const apiUrl = config.public.API_BASE_URL
+
+
+
+
   // Set page meta and head elements
   useHead({
     title: 'mindboost',

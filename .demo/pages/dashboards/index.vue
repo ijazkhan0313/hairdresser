@@ -259,6 +259,10 @@ function useBarProfit() {
 import { useAuthStore } from '~/stores/auth'
 import { useRoute, useRouter } from 'vue-router';
 
+// define api_route
+const config = useRuntimeConfig()
+const apiUrl = config.public.apiUrl
+
 const route = useRoute();
 const router = useRouter();
 
@@ -293,7 +297,7 @@ const bookings = ref([]);
 // Fetch data on component mount
 onMounted(async () => {
   try {
-    const response = await fetch('http://localhost:8000/api/v1/get-active-booking');
+    const response = await fetch(`${apiUrl}/api/v1/get-active-booking`);
     const data = await response.json();
     bookings.value = data.bookings;
 
@@ -314,7 +318,7 @@ const cancelBooking = async (id: number) => {
   const toaster = useToaster();  // Ensure the toaster instance is initialized
 
   try {
-    const response = await fetch(`http://localhost:8000/api/v1/cancel-booking/${id}`, {
+    const response = await fetch(`${apiUrl}/api/v1/cancel-booking/${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -362,7 +366,7 @@ const markCompleted = async (id: number) => {
   const toaster = useToaster();  // Ensure the toaster instance is initialized
 
   try {
-    const response = await fetch(`http://localhost:8000/api/v1/mark-completed/${id}`, {
+    const response = await fetch(`${apiUrl}/api/v1/mark-completed/${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -1,5 +1,8 @@
 <script setup>
 
+// define api_route
+const config = useRuntimeConfig()
+const apiUrl = config.public.apiUrl
 
 definePageMeta({
   layout: "default",
@@ -24,7 +27,7 @@ const zipcode = ref("");
 onMounted(async () => {
   try {
     const id = route.params.id;
-    const response = await fetch(`http://localhost:8000/api/v1/get-user/${id}`);
+    const response = await fetch(`${apiUrl}/api/v1/get-user/${id}`);
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
@@ -60,7 +63,7 @@ const handleSubmit = async () => {
     };
 
     const response = await fetch(
-      `http://localhost:8000/api/v1/update-user/${id}`,
+      `${apiUrl}/api/v1/update-user/${id}`,
       {
         method: "POST",
         headers: {

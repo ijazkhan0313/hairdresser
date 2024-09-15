@@ -13,6 +13,9 @@ definePageMeta({
 
 // my code 
 import { useAuthStore } from '~/stores/auth'
+// define api_route
+const config = useRuntimeConfig()
+const apiUrl = config.public.apiUrl
 
 definePageMeta({
     middleware: ['auth']
@@ -23,7 +26,7 @@ const users = ref([]);
 // Fetch data on component mount
 onMounted(async () => {
   try {
-    const response = await fetch('http://localhost:8000/api/v1/get-clients');
+    const response = await fetch(`${apiUrl}/api/v1/get-clients`);
     const data = await response.json();
     users.value = data.clients;
     console.log('users.value', users.value);
@@ -38,7 +41,7 @@ const deleteUser = async (id: number) => {
 
     try {
         // Make the API call to delete the user
-        await fetch(`http://localhost:8000/api/v1/delete-user/${id}`, {
+        await fetch(`${apiUrl}/api/v1/delete-user/${id}`, {
             method: 'POST',
         });
 

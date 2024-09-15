@@ -18,9 +18,13 @@ definePageMeta({
 
 // my code 
 import { useAuthStore } from '~/stores/auth'
+const route = useRoute()
 const authStore = useAuthStore()
-
 const toaster = useToaster()
+
+// define api_route
+const config = useRuntimeConfig()
+const apiUrl = config.public.apiUrl
 
 // Define reactive form fields
 const first_name = ref('')
@@ -54,7 +58,7 @@ function handleSubmit() {
   }
 
   // Send the data using fetch
-  fetch('http://localhost:8000/api/v1/add-hairdresser', {
+  fetch(`${apiUrl}/api/v1/add-hairdresser`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -75,7 +79,8 @@ function handleSubmit() {
         class: 'end-2 top-2',
         closable: true,
       })
-      router.push('/hairdresser'); // Adjust the path if necessary
+     
+      navigateTo('/dashboards/hairdresser')
     })
     .catch((error) => {
       console.error('Error:', error);

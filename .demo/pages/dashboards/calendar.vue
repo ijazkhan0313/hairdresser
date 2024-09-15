@@ -212,6 +212,10 @@ const selectedEventFeatures = computed({
 // Function to send booking data to the backend
 import { ref, computed, reactive } from 'vue';
 
+// define api_route
+const config = useRuntimeConfig()
+const apiUrl = config.public.apiUrl
+
 const categories = [
   { title: 'Simple haircut for men', value: 'Simple haircut for men' },
   { title: 'Simple haircut for men + wash', value: 'Simple haircut for men + wash' },
@@ -234,9 +238,7 @@ const selectedEvent = ref({
   // Other fields...
 });
 
-// Access the runtime configuration
-const config = useRuntimeConfig()
-const apiBaseUrl = config.public.apiBaseUrl
+
 const toaster = useToaster()
 
 

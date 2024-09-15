@@ -15,6 +15,10 @@ definePageMeta({
 import { useAuthStore } from '~/stores/auth'
 const toaster = useToaster()
 
+// define api_route
+const config = useRuntimeConfig()
+const apiUrl = config.public.apiUrl
+
 definePageMeta({
     middleware: ['auth']
 })
@@ -24,7 +28,7 @@ const users = ref([]);
 // Fetch data on component mount
 onMounted(async () => {
   try {
-    const response = await fetch('http://localhost:8000/api/v1/get-hairdresser');
+    const response = await fetch(`${apiUrl}/api/v1/get-hairdresser`);
     const data = await response.json();
     users.value = data.users;
   } catch (error) {
@@ -35,7 +39,7 @@ onMounted(async () => {
 // Method to handle user deletion
 const deleteUser = async (id: number) => {
   try {
-    const response = await fetch(`http://localhost:8000/api/v1/delete-user/${id}`, {
+    const response = await fetch(`${apiUrl}/api/v1/delete-user/${id}`, {
       method: 'POST',
     });
 

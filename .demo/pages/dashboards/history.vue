@@ -4,6 +4,10 @@
 import { useAuthStore } from '~/stores/auth'
 const authStore = useAuthStore()
 
+// define api_route
+const config = useRuntimeConfig()
+const apiUrl = config.public.apiUrl
+
 definePageMeta({
   middleware: ['auth']
 })
@@ -22,7 +26,7 @@ const bookings = ref([]);
 // Fetch data on component mount
 onMounted(async () => {
   try {
-    const response = await fetch('http://localhost:8000/api/v1/get-all-bookings');
+    const response = await fetch(`${apiUrl}/api/v1/get-all-bookings`);
     const data = await response.json();
     bookings.value = data.bookings;
     console.log(data.bookings);

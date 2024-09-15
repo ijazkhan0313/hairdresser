@@ -1024,6 +1024,10 @@ import "~/assets/css/vcalendar.css";
 import { useHead } from "#app";
 import { definePageMeta } from "#imports"; // Ensure this import is correct for Nuxt 3
 
+// define api_route
+const config = useRuntimeConfig()
+const apiUrl = config.public.apiUrl
+
 // Set page meta and head elements
 useHead({
   title: "mindboost",
@@ -1058,7 +1062,7 @@ const users = ref([]);
 // Fetch data on component mount
 onMounted(async () => {
   try {
-    const response = await fetch("http://localhost:8000/api/v1/get-hairdresser");
+    const response = await fetch(`${apiUrl}/api/v1/get-hairdresser`);
     const data = await response.json();
     users.value = data.users;
     console.log(users.value);
@@ -1224,7 +1228,7 @@ function handleSubmit() {
   };
 
   const toaster = useToaster();
-  fetch("http://localhost:8000/api/v1/booking", {
+  fetch(`${apiUrl}/api/v1/booking`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

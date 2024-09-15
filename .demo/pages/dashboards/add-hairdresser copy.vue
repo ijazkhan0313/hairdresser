@@ -16,6 +16,10 @@ definePageMeta({
 import { useAuthStore } from '~/stores/auth'
 const authStore = useAuthStore()
 
+// define api_route
+const config = useRuntimeConfig()
+const apiUrl = config.public.apiUrl
+
 const name = ref('')
 const email = ref('')
 const phone = ref('')
@@ -34,7 +38,7 @@ function handleSubmit() {
   }
 
   // Send the data using fetch
-  fetch('http://localhost:8000/api/v1/add-hairdresser', {
+  fetch(`${apiUrl}/api/v1/add-hairdresser`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

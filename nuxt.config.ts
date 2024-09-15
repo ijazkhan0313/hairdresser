@@ -4,4 +4,12 @@ export default defineNuxtConfig({
   // css: [
   //   'bootstrap/dist/css/bootstrap.min.css'
   // ]
+
+  runtimeConfig: {
+    public: {
+     apiUrl: process.env.API_BASE_URL || 'http://localhost:8000', // Default value if .env is not set
+      },
+  }
+
+  
 })
